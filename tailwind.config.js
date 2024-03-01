@@ -13,6 +13,10 @@ module.exports = {
       },
       colors: {
         'primary-orange': '#FF5722',
+        'plasma': '#45cce3ff',
+        'navy': '#1c525b',
+        'garnet': '#9b2a17',
+        'swamp': '#179b2a'
       }
     },
   },

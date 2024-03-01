@@ -30,7 +30,7 @@
 
 .main:after {
   content: "";
-  background-image: url("/public/assets/images/grid.svg"); /* Add `public/` to correct the path */
+  background-image: url("/assets/images/grid.svg"); /* Add `public/` to correct the path */
   z-index: 1;
   position: absolute;
   width: 100%;
@@ -43,7 +43,6 @@
 .gradient {
   height: fit-content;
   z-index: 3;
-  width: 100%;
   max-width: 640px;
   background-image: radial-gradient(
       at 27% 37%,
@@ -89,8 +88,8 @@
   @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
 }
 
-.orange_gradient {
-  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+.blue_green_gradient {
+  @apply bg-gradient-to-r from-plasma via-swamp to-navy bg-clip-text text-transparent;
 }
 
 .green_gradient {
@@ -106,7 +105,7 @@
 }
 
 .search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-swamp focus:outline-none focus:ring-0;
 }
 
 .copy_btn {
