@@ -2,7 +2,7 @@ import { connectToDatabase } from "@utils/database";
 import Prompt from '@models/prompt';
 
 // GET (read) 
-export const GET = async (request, { params }) => {
+export const GET = async ({ params }) => {
     try {
         await connectToDatabase();
 
@@ -64,7 +64,7 @@ export const PATCH = async (request, { params }) => {
 };
 
 // DELETE (delete)
-export const DELETE = async (request, { params }) => {
+export const DELETE = async ({ params }) => {
     try {
         await connectToDatabase;
 
