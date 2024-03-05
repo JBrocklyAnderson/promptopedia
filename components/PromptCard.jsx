@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -10,20 +10,58 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const pathName = usePathname();
   const router = useRouter();
 
-  const [copied, setCopied] = useState('');
+  const [ copied, setCopied ] = useState('');
+  const [ liked, setLiked ] = useState(false);
+  const [ likeCounter, setLikeCounter ] = useState();
+
+  // Update `liked` and `likeCounter` states when they change
+  useEffect(() => {
+    // Check if the current user's ID is in the prompt's `likers` array
+    const userLikesPrompt = post.likers.includes(session?.user.id);
+    setLiked(userLikesPrompt); 
+
+    // Initialize like counter with accurate prompt data
+    setLikeCounter(post.likeCount);
+  }, [post, session]);
+  
 
   const handleProfileClick = () => {
     console.log(post);
 
     if (post.creator._id === session?.user.id) return router.push('/profile'); // Send the user to their own profile if they are the posts' author
     
-    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`); // 
+    router.push(`/profile/${post.creator._id}?name=${post._id}`); // 
   }
 
   const handleCopy = () => {
     setCopied(post.prompt); // Update the state of what's been copied
     navigator.clipboard.writeText(post.prompt); // Pass the prompt to the clipboard
     setTimeout(() => setCopied(''), 3000); // Set what's been "copied" back to an empty string so that other prompts are accessible
+  }
+
+  const handleLike = async () => {
+    const action = liked ? 'unlike' : 'like';
+
+    try {
+      const response = await fetch(`/api/prompt/${post._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: session?.user.id,
+          action,
+        }),
+      });
+      
+      if (!response.ok) throw new Error('Failed to fetch prompt.')
+
+      const data = await response.json();
+      setLiked(data.liked);
+      setLikeCounter(data.likeCount);
+    } catch (error) {
+      console.error('Failed to update like state:', error);
+    }
   }
 
   return (
@@ -61,9 +99,26 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       <p className='my-4 font-satoshi text-sm text-navy'>
         {post.prompt}
       </p>
-      <p className='font-inter text-sm text-plasma cursor-pointer' onClick={() => handleTagClick && handleTagClick(post.tag)}>
-        {post.tag}
-      </p>
+
+      <div className='flex justify-between'>
+        <p className='font-inter text-sm text-plasma cursor-pointer' onClick={() => handleTagClick && handleTagClick(post.tag)}>
+          {post.tag}
+        </p>
+      
+        {/* Only render the like button if the user is logged in */}
+        {session?.user && (
+        <div onClick={handleLike} title={likeCounter === 1 ? `${likeCounter} Like` : `${likeCounter} Likes`}>
+          <Image 
+            src={liked ? '/assets/icons/liked.svg' : '/assets/icons/thumbs-up.svg'}
+            alt='like_button'
+            width={16}
+            height={16}
+            className='cursor-pointer'
+          />
+        </div>
+        )}
+      </div>
+
 
       {/* Check to see whether the currently logged in user is the creator of the post and if they are on the profile page */}
       {session?.user.id === post.creator._id && pathName === '/profile' && (
