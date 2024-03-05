@@ -58,13 +58,20 @@ const EditPrompt = () => {
         }
     }
     
-    
-    return (
-        <Suspense fallback={
+    if (typeof promptId === 'undefined') {
+        return (
             <div className='font-satoshi text-sm text-gray-500'>
                 Loading prompt details...
             </div>
-        }>
+        )
+    }
+    
+    return (
+        // <Suspense fallback={
+        //     <div className='font-satoshi text-sm text-gray-500'>
+        //         Loading prompt details...
+        //     </div>
+        // }>
             <Form 
                 name='Update'
                 type='Update'

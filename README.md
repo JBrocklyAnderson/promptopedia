@@ -53,6 +53,8 @@ Before running the application, be sure to set up your environment variables
 
 ``` env
 NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL_INTERNAL=http://localhost:3000
+NEXTAUTH_SECRET=your-next-auth-secret
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
 MONGODB_URI=your-mongodb-atlas-uri
