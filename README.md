@@ -1,5 +1,5 @@
 # Promptopedia
-Promptopedia is a social platform dedicate to sharing unique and powerful prompts designed engage with large language models in an effort to build robust creative professionals. Built with Next.js 14 and leveraging the new App Router, it provides a seamless experience for users to interact with a global community.
+Promptopedia is a social platform dedicate to sharing unique and powerful prompts designed engage with large language models in an effort to build robust creative professionals. Built with Next.js 14 and leveraging the new App Router, it provides a seamless experience for users to interact with a global community. The project is deployed live on [Vercel](https://vercel-link).
 
 ## Features
 
@@ -57,6 +57,9 @@ GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
 MONGODB_URI=your-mongodb-atlas-uri
 ```
+
+### License
+This project is licensed under the MIT license — see the accompanying file for details.
 
 ### Acknowledgements
 Extraordinary credit goes to JavaScript Mastery for offering the scaffolding of this project as a tutorial to help fresh web developers explore new technology and programming tools.
